@@ -1,57 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OrigamiBackend;
 using OrigamiBackend.Data;
-
 
 namespace OrigamiBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TasksController : ControllerBase
+    public class TaskTypesController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public TasksController(DataContext context)
+        public TaskTypesController(DataContext context)
         {
             _context = context;
         }
 
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Task>>> GetTasks()
+        public async Task<ActionResult<IEnumerable<TaskType>>> GetTaskTypes()
         {
-            return await _context.Tasks.ToListAsync();
+            return await _context.TaskTypes.ToListAsync();
         }
 
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<Task>> GetTask(int id)
+        public async Task<ActionResult<TaskType>> GetTaskType(int id)
         {
-            var task = await _context.Tasks.FindAsync(id);
+            var taskType = await _context.TaskTypes.FindAsync(id);
 
-            if (task == null)
+            if (taskType == null)
             {
                 return NotFound();
             }
 
-            return task;
+            return taskType;
         }
-
+        
+        
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTask(int id, Task task)
+        public async Task<IActionResult> PutTaskType(int id, TaskType taskType)
         {
-            if (id != task.Id)
+            if (id != taskType.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(task).State = EntityState.Modified;
+            _context.Entry(taskType).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +56,7 @@ namespace OrigamiBackend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TaskExists(id))
+                if (!TaskTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -73,32 +70,32 @@ namespace OrigamiBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Task>> PostTask(Task task)
+        public async Task<ActionResult<TaskType>> PostTaskType(TaskType taskType)
         {
-            _context.Tasks.Add(task);
+            _context.TaskTypes.Add(taskType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTask", new { id = task.Id }, task);
+            return CreatedAtAction("GetTaskType", new { id = taskType.Id }, taskType);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTask(int id)
+        public async Task<IActionResult> DeleteTaskType(int id)
         {
-            var task = await _context.Tasks.FindAsync(id);
-            if (task == null)
+            var taskType = await _context.TaskTypes.FindAsync(id);
+            if (taskType == null)
             {
                 return NotFound();
             }
 
-            _context.Tasks.Remove(task);
+            _context.TaskTypes.Remove(taskType);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TaskExists(int id)
+        private bool TaskTypeExists(int id)
         {
-            return _context.Tasks.Any(e => e.Id == id);
+            return _context.TaskTypes.Any(e => e.Id == id);
         }
     }
 }
