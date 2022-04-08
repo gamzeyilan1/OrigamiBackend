@@ -2,12 +2,11 @@
 
 namespace OrigamiBackend
 {
-    public class TaskType
+    public class TaskCategory: BaseEntity
     {
         public int Id { get; set; }
         
-        [StringLength((20))]
-        public string TaskName { get; set; }
+        public string Name { get; set; }
         
     }
 }

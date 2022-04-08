@@ -9,47 +9,48 @@ namespace OrigamiBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskTypesController : ControllerBase
+  
+    public class TeamController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public TaskTypesController(DataContext context)
+        public TeamController(DataContext context)
         {
             _context = context;
         }
 
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TaskCategory>>> GetTaskTypes()
+        public async Task<ActionResult<IEnumerable<Team>>> GetTeams()
         {
-            var tasks= await _context.TaskCategory.ToListAsync();
-            return Ok(tasks);
+            var teams= await _context.Team.ToListAsync();
+            return Ok(teams);
         }
 
-        
+       
         [HttpGet("{id}")]
-        public async Task<ActionResult<TaskCategory>> GetTaskType(int id)
+        public async Task<ActionResult<Team>> GetTeam(int id)
         {
-            var taskType = await _context.TaskCategory.FindAsync(id);
+            var team = await _context.Team.FindAsync(id);
 
-            if (taskType == null)
+            if (team == null)
             {
                 return NotFound();
             }
 
-            return Ok(taskType);
+            return Ok(team);
         }
-        
-        
+
+   
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTaskType(int id, TaskCategory taskType)
+        public async Task<IActionResult> PutTeam(int id, Team team)
         {
-            if (id != taskType.Id)
+            if (id != team.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(taskType).State = EntityState.Modified;
+            _context.Entry(team).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +58,7 @@ namespace OrigamiBackend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TaskTypeExists(id))
+                if (!TeamExists(id))
                 {
                     return NotFound();
                 }
@@ -70,33 +71,36 @@ namespace OrigamiBackend.Controllers
             return Ok();
         }
 
+        
         [HttpPost]
-        public async Task<ActionResult<TaskCategory>> PostTaskType(TaskCategory taskType)
+        public async Task<ActionResult<Team>> PostTeam(Team team)
         {
-            _context.TaskCategory.Add(taskType);
+            _context.Team.Add(team);
             await _context.SaveChangesAsync();
 
             return Ok();
         }
 
+        
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTaskType(int id)
+        public async Task<IActionResult> DeleteTeam(int id)
         {
-            var taskType = await _context.TaskCategory.FindAsync(id);
-            if (taskType == null)
+            var team = await _context.Team.FindAsync(id);
+            if (team == null)
             {
                 return NotFound();
             }
 
-            _context.TaskCategory.Remove(taskType);
+            _context.Team.Remove(team);
             await _context.SaveChangesAsync();
 
             return Ok();
         }
 
-        private bool TaskTypeExists(int id)
+        private bool TeamExists(int id)
         {
-            return _context.TaskCategory.Any(e => e.Id == id);
+            return _context.Team.Any(e => e.Id == id);
         }
     }
+    
 }

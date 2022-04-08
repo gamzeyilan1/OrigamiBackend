@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "5hArMNOK/7GbujrQYmO9Z7a8pVdVLcEaFi7rX6XaxNk3vDF4sjgs9QahEjjmDog/0aRgTGCFII0xovEZr4lzuw==",
+  "dgSpecHash": "AJydChmbxKMXhRkw0YaLdCj6UU0oFEBrlqTc13fa2pozYtVSqCvQR7PRXLV2hXsmRQ99r2X+GTbslxYWfKi9pw==",
   "success": true,
   "projectFilePath": "C:\\Users\\HP\\RiderProjects\\OrigamiBackend\\OrigamiBackend\\OrigamiBackend.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\HP\\.nuget\\packages\\devextreme.aspnet.data\\2.8.6\\devextreme.aspnet.data.2.8.6.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnet.cors\\5.0.0\\microsoft.aspnet.cors.5.0.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.0.0\\microsoft.aspnet.webapi.client.5.0.0.nupkg.sha512",

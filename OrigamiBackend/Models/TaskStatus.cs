@@ -3,15 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OrigamiBackend
 {
-    public class Status
+    public class TaskStatus: BaseEntity
     {
         public int Id { get; set; }
-
-        [StringLength(20)]
-        public string StatusOption { get; set; } = string.Empty;
         
-        
-        
+        public string Name { get; set; }
         
     }
 }

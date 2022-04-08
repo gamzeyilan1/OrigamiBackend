@@ -10,39 +10,40 @@ namespace OrigamiBackend.Controllers
     [Route("api/[controller]")]
     [ApiController]
   
-    public class StatusController : ControllerBase
+    public class TaskStatusController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public StatusController(DataContext context)
+        public TaskStatusController(DataContext context)
         {
             _context = context;
         }
 
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Status>>> GetStatuses()
+        public async Task<ActionResult<IEnumerable<TaskStatus>>> GetStatuses()
         {
-            return await _context.Statuses.ToListAsync();
+            var statuses= await _context.TaskStatus.ToListAsync();
+            return Ok(statuses);
         }
 
        
         [HttpGet("{id}")]
-        public async Task<ActionResult<Status>> GetStatus(int id)
+        public async Task<ActionResult<TaskStatus>> GetStatus(int id)
         {
-            var status = await _context.Statuses.FindAsync(id);
+            var status = await _context.TaskStatus.FindAsync(id);
 
             if (status == null)
             {
                 return NotFound();
             }
 
-            return status;
+            return Ok(status);
         }
 
    
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStatus(int id, Status status)
+        public async Task<IActionResult> PutStatus(int id, TaskStatus status)
         {
             if (id != status.Id)
             {
@@ -67,38 +68,38 @@ namespace OrigamiBackend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         
         [HttpPost]
-        public async Task<ActionResult<Status>> PostStatus(Status status)
+        public async Task<ActionResult<TaskStatus>> PostStatus(TaskStatus status)
         {
-            _context.Statuses.Add(status);
+            _context.TaskStatus.Add(status);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStatus", new { id = status.Id }, status);
+            return Ok();
         }
 
         
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStatus(int id)
         {
-            var status = await _context.Statuses.FindAsync(id);
+            var status = await _context.TaskStatus.FindAsync(id);
             if (status == null)
             {
                 return NotFound();
             }
 
-            _context.Statuses.Remove(status);
+            _context.TaskStatus.Remove(status);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         private bool StatusExists(int id)
         {
-            return _context.Statuses.Any(e => e.Id == id);
+            return _context.TaskStatus.Any(e => e.Id == id);
         }
     }
     
